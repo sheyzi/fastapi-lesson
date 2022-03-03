@@ -1,5 +1,9 @@
 from fastapi import FastAPI, HTTPException, status
+from pydantic import BaseModel
 
+class TodoSchema(BaseModel):
+    content: str
+    completed: bool
 
 app = FastAPI()
 
@@ -34,3 +38,11 @@ def get_todo_with_id(id: int):
                             f'todo with id {id} doesnt exist')
 
     return todo
+
+
+@app.post('/{id}/')
+def create_todo(id: int, body: TodoSchema):
+    if todos.get(id):
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, f"todo with id {id} already exists!")
+    todos[id] = body
+    return {'status': "success", "body": body}

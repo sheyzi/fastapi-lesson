@@ -1,4 +1,13 @@
 GET http://127.0.0.1:8000/
 
 ###
-GET http://127.0.0.1:8000/5
+GET http://127.0.0.1:8000/4
+
+###
+POST http://127.0.0.1:8000/4
+Content-Type: application/json
+
+{
+    "content": "A new One",
+    "completed": true
+}
